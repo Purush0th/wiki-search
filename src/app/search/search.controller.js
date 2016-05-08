@@ -4,8 +4,8 @@
         .controller('SearchController', SearchController);
 
     /* @ngInject */
-    SearchController.$inject = ['$log', 'wikiService', '$mdDialog', '$mdMedia'];
-    function SearchController(logger, wikiService, dialog, media) {
+    SearchController.$inject = ['$log', 'wikiService', '$mdDialog', '$mdMedia', '$mdToast', '$mdSidenav'];
+    function SearchController(logger, wikiService, dialog, media, toast, sideNav) {
 
         var vm = this;
         var navigations = [
@@ -24,8 +24,9 @@
         vm.navTypes = navigations;
         vm.selection = vm.navTypes[0];
         vm.searchWiki = search;
-        vm.wikiResult = [];
         vm.showArticle = showArticle;
+        vm.toggleNav = function () { sideNav('nav-left').toggle(); };
+        vm.wikiResult = [];
 
         activate();
 
@@ -54,6 +55,14 @@
                 var page = 'https://en.wikipedia.org/?curid=';
                 var results = [];
 
+                if (!data.query) {
+                    toast.show(toast.simple()
+                        .textContent('No results found!')
+                        .position('top right')
+                        .hideDelay(3000));
+
+                    return;
+                }
                 angular.forEach(data.query.pages, function (item) {
                     results.push({
                         title: item.title,

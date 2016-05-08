@@ -32,14 +32,14 @@
 
 <body ng-app="app" layout="column" ng-controller="SearchController as vm" ng-cloak>
   <div flex layout>
-    <md-sidenav md-is-locked-open="$mdMedia('gt-sm')" md-component-id="left" class="md-whiteframe-z2">
+    <md-sidenav md-is-locked-open="$mdMedia('gt-sm')" md-component-id="nav-left" class="md-whiteframe-z2">
       <header class="nav-header">
         <md-icon md-svg-icon="logo"></md-icon>
         <h1 class="md-display-1">Wiki Search</h1>
       </header>
       <md-divider></md-divider>
 
-      <md-list>
+      <md-list ng-click="vm.toggleNav()">
         <md-list-item ng-repeat="nav in vm.navTypes" ng-click="vm.navigateTo(nav)">
           <p>{{nav.title}}</p>
           <md-icon md-svg-icon="{{nav.type}}"></md-icon>
@@ -50,7 +50,7 @@
     <div layout="column" flex>
 
       <md-toolbar layout="row" class="md-whiteframe-glow-z1 site-content-toolbar">
-        <md-button class="menu" hide-gt-sm aria-label="Show menu items">
+        <md-button class="menu md-primary" hide-gt-sm aria-label="Show menu items" ng-click="vm.toggleNav()">
           <md-icon md-svg-icon="menu"></md-icon>
         </md-button>
         <h1 class="md-headline">{{vm.selection.title}}</h1>
