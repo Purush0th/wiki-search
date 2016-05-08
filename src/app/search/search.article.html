@@ -1,0 +1,16 @@
+<md-dialog aria-label="{{wikiDialog.title}}" ng-cloak class="fullscreen-dialog">
+    <form>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>{{wikiDialog.title}}</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="wikiDialog.close()">
+                    X
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content flex>
+            <iframe src="{{wikiDialog.url}}" frameborder="0" style="position:absolute;"></iframe>
+        </md-dialog-content>
+    </form>
+</md-dialog>
