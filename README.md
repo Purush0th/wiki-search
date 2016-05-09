@@ -6,7 +6,7 @@ This application can be used to search Wikipedia's articles and read them quickl
 
 >Demo: http://purush0th.github.io/wiki-search
  
- _This project is entirely built on Angular Material. visit here https://material.angularjs.org/latest _
+ _This project is entirely built on Angular Material. visit here https://material.angularjs.org/latest_
  
 ### Search an article
 <br/>
