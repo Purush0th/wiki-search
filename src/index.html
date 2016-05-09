@@ -10,7 +10,7 @@
   <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
 
   <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic'>
-  <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.css">
+  <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.7/angular-material.min.css">
   <link rel="stylesheet" href="assets/app.css" />
 
   <style type="text/css">
@@ -32,10 +32,15 @@
 
 <body ng-app="app" layout="column" ng-controller="SearchController as vm" ng-cloak>
   <div flex layout>
+
+    <!-- side nav -->
     <md-sidenav md-is-locked-open="$mdMedia('gt-sm')" md-component-id="nav-left" class="md-whiteframe-z2">
       <header class="nav-header">
-        <md-icon md-svg-icon="logo"></md-icon>
+        <a href="/">
+          <md-icon md-svg-icon="logo"></md-icon>
+        </a>
         <h1 class="md-display-1">Wiki Search</h1>
+
       </header>
       <md-divider></md-divider>
 
@@ -49,13 +54,21 @@
 
     <div layout="column" flex>
 
+      <!-- top toolbar -->
       <md-toolbar layout="row" class="md-whiteframe-glow-z1 site-content-toolbar">
-        <md-button class="menu md-primary" hide-gt-sm aria-label="Show menu items" ng-click="vm.toggleNav()">
+        <md-button class="toolbar-tools" hide-gt-sm aria-label="Show menu items" ng-click="vm.toggleNav()">
           <md-icon md-svg-icon="menu"></md-icon>
         </md-button>
+
         <h1 class="md-headline">{{vm.selection.title}}</h1>
+        <span flex></span>
+
+        <md-button class="toolbar-tools md-primary" ng-click="vm.refreshIframe()" ng-show="vm.selection.type === 'random'" aria-label="Get random wiki article">
+          <md-icon md-svg-icon="reload"></md-icon>
+        </md-button>
       </md-toolbar>
 
+      <!-- wiki search content -->
       <md-content ng-if="vm.selection.type === 'search'">
         <md-toolbar class="md-tall md-primary" layout layout-align="center center">
           <form ng-submit="vm.searchWiki()" flex="90" flex-gt-sm="50" id="search-form">
@@ -97,8 +110,9 @@
         </div>
       </md-content>
 
+      <!-- wiki random article content -->
       <md-content ng-if="vm.selection.type === 'random'" flex>
-        <iframe src="https://en.wikipedia.org/wiki/Special:Random" frameborder="0" width="100%" height="100%" style="position:absolute;"></iframe>
+        <iframe ng-src="{{vm.randomWikiUrl}}" frameborder="0" width="100%" height="100%" style="position:absolute;"></iframe>
       </md-content>
     </div>
   </div>
@@ -111,7 +125,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-sanitize/1.5.5/angular-sanitize.min.js"></script>
 
   <!-- Angular Material Library -->
-  <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.7/angular-material.min.js"></script>
 
 
   <script src="./app/search/search.module.js"></script>

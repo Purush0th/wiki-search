@@ -16,6 +16,7 @@
             .icon('logo', './assets/svg/logo.svg', 24)
             .icon('share', './assets/svg/share.svg', 24)
             .icon('copy', './assets/svg/copy.svg', 24)
-            .icon('cancel', './assets/svg/cancel.svg', 24);
+            .icon('cancel', './assets/svg/cancel.svg', 24)
+            .icon('reload', './assets/svg/reload.svg', 24);
     }
 })();

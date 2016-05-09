@@ -4,8 +4,8 @@
         .controller('SearchController', SearchController);
 
     /* @ngInject */
-    SearchController.$inject = ['$log', 'wikiService', '$mdDialog', '$mdMedia', '$mdToast', '$mdSidenav'];
-    function SearchController(logger, wikiService, dialog, media, toast, sideNav) {
+    SearchController.$inject = ['$log', 'wikiService', '$mdDialog', '$mdMedia', '$mdToast', '$mdSidenav', '$sce'];
+    function SearchController(logger, wikiService, dialog, media, toast, sideNav, $sce) {
 
         var vm = this;
         var navigations = [
@@ -18,14 +18,16 @@
                 title: 'Random'
             }
         ];
-
+        var wikiRandom = "https://en.wikipedia.org/wiki/Special:Random";
 
         vm.navigateTo = navigateTo;
         vm.navTypes = navigations;
+        vm.randomWikiUrl = $sce.trustAsResourceUrl(wikiRandom);
+        vm.refreshIframe = refreshIframe;
         vm.selection = vm.navTypes[0];
         vm.searchWiki = search;
         vm.showArticle = showArticle;
-        vm.toggleNav = function () { sideNav('nav-left').toggle(); };
+        vm.toggleNav = toggleSideNav;
         vm.wikiResult = [];
 
         activate();
@@ -37,6 +39,10 @@
         function navigateTo(type) {
             vm.selection = type;
         };
+
+        function refreshIframe() {
+            vm.randomWikiUrl = $sce.trustAsResourceUrl(wikiRandom + '?v=' + Date.now());
+        }
 
         function search() {
 
@@ -105,6 +111,10 @@
             self.close = function () {
                 dialog.hide();
             }
+        };
+
+        function toggleSideNav() {
+            sideNav('nav-left').toggle();
         };
     }
 })();
